@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+<form action="LoginServlets" method="post" onsubmit="return validateForm()">
+    <label for="user">UserName:</label>
+    <input type="text" id="user" name="user" oninput="validateUsername()">
+    <br/>
+    <div id="usernameError" style="color: red;"></div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" oninput="validatePassword()"/>
+    <div id="passwordError" style="color: red;"></div>
+    <br/>
+    <input type="submit" value="Login">
+</form>
+
+<script>
+    function validateUsername() {
+        var username = document.getElementById('user').value;
+        var usernameError = document.getElementById('usernameError');
+        if (username.length < 3) {
+            usernameError.textContent = "Username must have at least three characters";
+        } else if (!/^[A-Za-z][A-Za-z]*$/.test(username)) {
+            usernameError.textContent = "Username doesn't match the required pattern";
+        } else {
+            usernameError.textContent = "";
+        }
+    }
+
+    function validatePassword() {
+        var password = document.getElementById('password').value;
+        var passwordError = document.getElementById('passwordError');
+        if (password.length < 8) {
+            passwordError.textContent = "Password must have at least eight characters";
+        } else {
+            passwordError.textContent = "";
+        }
+    }
+
+    function validateForm() {
+        validateUsername();
+        validatePassword();
+        var usernameError = document.getElementById('usernameError').textContent;
+        var passwordError = document.getElementById('passwordError').textContent;
+        if (usernameError || passwordError) {
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
